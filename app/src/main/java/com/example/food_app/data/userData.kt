@@ -18,6 +18,7 @@ object mainImage { // 메인페이지에 출력할 이미지 데이터
     var mainImageDate : String? = null
     var mainEatTime : String? = null
     var mainFood: String? = null
+    var foodKcal : String? = null
 }
 
 object mypageImage { // 사용자가 선택한 날짜의 이미지 데이터

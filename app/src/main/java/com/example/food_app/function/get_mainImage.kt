@@ -17,7 +17,6 @@ fun get_mainImage() {
     val serverAddress = serverInfo.serverAddress
     val port = serverInfo.port
     val userId = userInfo.userID
-
     GlobalScope.launch(Dispatchers.IO) {
         try {
             // 서버에 연결
@@ -34,6 +33,7 @@ fun get_mainImage() {
             val date = reader.readLine()
             val eattime = reader.readLine()
             val foods = reader.readLine()
+            val foodkcal = reader.readLine()
 
             if (encodedImage != null) {
                 // Base64 인코딩된 이미지를 디코딩하여 Bitmap으로 변환
@@ -45,6 +45,7 @@ fun get_mainImage() {
                 mainImage.mainImageDate = date
                 mainImage.mainEatTime = eattime
                 mainImage.mainFood = foods
+                mainImage.foodKcal = foodkcal
             }
 
             // 연결 종료

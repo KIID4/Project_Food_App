@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.food_app.data.userInfo
 import com.example.food_app.ui.shape.bottomAppBar
 import com.example.food_app.ui.shape.topAppBar
 
@@ -17,9 +16,7 @@ fun userMain(navController : NavController) {
     ) {
         topAppBar(navController)
         Spacer(Modifier.weight(0.8f))
-        if(userInfo.loginCheck){
-            printMainImage()
-        }
+        printMainImage()
         Spacer(Modifier.weight(0.2f))
         bottomAppBar(navController)
     }
