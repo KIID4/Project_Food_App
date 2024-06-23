@@ -47,7 +47,7 @@ object borderData { // 다른 사용자의 게시판 출력을 위한 데이터
 }
 
 object borderWriteData { // 게시판 작성을 위한 데이터
-    var borderWritImageBitmap : Bitmap? = null
+    var borderWriteImageBitmap : Bitmap? = null
     var borderWriteTitle : String? = null
     var borderWritContent : String? = null
 }

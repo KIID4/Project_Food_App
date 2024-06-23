@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.food_app.data.*
 import com.example.food_app.function.get_mainImage
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun regisTogalleryImage() {
@@ -119,7 +121,7 @@ fun regisToBorderImage() {
         }
     }
 
-    borderWriteData.borderWritImageBitmap = bitmap.value
+    borderWriteData.borderWriteImageBitmap = bitmap.value
 
     Row (
         modifier = Modifier.padding(70.dp),
@@ -165,59 +167,72 @@ fun regisToBorderImage() {
 
 @Composable
 fun printMainImage() {
-    get_mainImage()
+    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
+    var date by remember { mutableStateOf("") }
+    var time by remember { mutableStateOf("") }
+    var foods by remember { mutableStateOf("") }
+    var showUI by remember { mutableStateOf(false) }
 
-    val bitmap = mainImage.mainImageBitmap
-    val date = mainImage.mainImageDate
-    val time = mainImage.mainEatTime
-    val foods = mainImage.mainFood
+    LaunchedEffect(Unit) {
+        // 데이터 로드 함수 호출
+        get_mainImage()
 
-    Box(
-        modifier = Modifier
-            .size(800.dp, 600.dp) // 이미지 크기와 같은 크기로 설정
-            .padding(10.dp),
-        contentAlignment = Alignment.TopCenter // 이미지를 위쪽 가운데로 정렬
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+        // 1초 딜레이 후 상태 업데이트
+        delay(3000L)
+        bitmap = mainImage.mainImageBitmap
+        date = mainImage.mainImageDate.toString()
+        time = mainImage.mainEatTime.toString()
+        foods = mainImage.mainFood.toString()
+        showUI = true // UI를 표시하도록 상태 업데이트
+    }
+
+    if (showUI) {
+        // UI 구성
+        Box(
+            modifier = Modifier
+                .size(800.dp, 600.dp) // 이미지 크기와 같은 크기로 설정
+                .padding(10.dp),
+            contentAlignment = Alignment.TopCenter // 이미지를 위쪽 가운데로 정렬
         ) {
-            if (bitmap != null) {
-
-                Text(
-                    text = "$date 일 $time 식단 입니다.",
-                    color = Color.Black,
-                    fontSize = 20.sp
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Image(
-                    bitmap = bitmap.asImageBitmap(),
-                    contentDescription = null,
-                    modifier = Modifier.size(800.dp, 300.dp) // 이미지 크기와 같은 크기로 설정
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "$foods",
-                    color = Color.Black,
-                    fontSize = 20.sp
-                )
-            } else {
-
-                Text(
-                    text = "이미지를 입력해주세요",
-                    color = Color.Black,
-                    fontSize = 20.sp
-                )
-
-                Spacer(modifier = Modifier.height(16.dp)) // 이미지와 텍스트 사이의 간격 조정 }
-                Box(
-                    modifier = Modifier
-                        .size(800.dp, 300.dp) // 박스 크기와 같은 크기로 설정
-                        .background(Color.Gray)
-                )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                if (bitmap != null) {
+                    Text(
+                        text = "$date 일 $time 식단 입니다.",
+                        color = Color.Black,
+                        fontSize = 20.sp
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Image(
+                        bitmap = bitmap!!.asImageBitmap(),
+                        contentDescription = null,
+                        modifier = Modifier.size(800.dp, 300.dp) // 이미지 크기와 같은 크기로 설정
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "$foods",
+                        color = Color.Black,
+                        fontSize = 20.sp
+                    )
+                } else {
+                    Text(
+                        text = "이미지를 입력해주세요",
+                        color = Color.Black,
+                        fontSize = 20.sp
+                    )
+                    Spacer(modifier = Modifier.height(16.dp)) // 이미지와 텍스트 사이의 간격 조정
+                    Box(
+                        modifier = Modifier
+                            .size(800.dp, 300.dp) // 박스 크기와 같은 크기로 설정
+                            .background(Color.Gray)
+                    )
+                }
             }
         }
     }
 }
+
 
 @Composable
 fun printMypageImage() {

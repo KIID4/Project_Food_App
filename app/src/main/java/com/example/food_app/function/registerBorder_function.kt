@@ -2,7 +2,7 @@ package com.example.food_app.function
 
 import android.graphics.Bitmap
 import android.util.Base64
-import com.example.food_app.data.borderWriteData
+import com.example.food_app.data.*
 import com.example.food_app.data.serverInfo
 import com.example.food_app.data.userInfo
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ fun registerBorder_function() {
     val serverAddress = serverInfo.serverAddress
     val port = serverInfo.port
 
-    val bitmap = borderWriteData.borderWritImageBitmap
+    val bitmap = borderWriteData.borderWriteImageBitmap
     val userId = userInfo.userID
     val title = borderWriteData.borderWriteTitle
     val content = borderWriteData.borderWritContent

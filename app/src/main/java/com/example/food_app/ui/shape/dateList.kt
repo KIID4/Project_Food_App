@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.food_app.data.mypageImage
 import com.example.food_app.function.get_mypageImage
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun dateList(navController: NavController) {
@@ -25,6 +27,7 @@ fun dateList(navController: NavController) {
     var selectedMonth by remember { mutableStateOf(6) }
     var selectedDay by remember { mutableStateOf(9) }
     var selectedMeal by remember { mutableStateOf("Morning") }
+    val coroutineScope = rememberCoroutineScope()
 
     val years = (2023..2024).toList()
     val months = (1..12).toList()
@@ -200,11 +203,17 @@ fun dateList(navController: NavController) {
 
             Button(
                 onClick = {
-                    mypageImage.mypageSelectDate = "$selectedYear-$selectedMonth-$selectedDay"
-                    mypageImage.mypageSelectTime = selectedMeal
-                    get_mypageImage()
-                    navController.navigate("mypage") {
-                        popUpTo("mypage")
+                    coroutineScope.launch {
+                        mypageImage.mypageSelectDate = "$selectedYear-$selectedMonth-$selectedDay"
+                        mypageImage.mypageSelectTime = selectedMeal
+                        get_mypageImage()
+
+                        // 1초 딜레이
+                        delay(1000L)
+
+                        navController.navigate("mypage") {
+                            popUpTo("mypage")
+                        }
                     }
                 },
 

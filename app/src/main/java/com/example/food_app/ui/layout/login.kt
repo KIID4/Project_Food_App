@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.food_app.ui.shape.bottomAppBar
-import com.example.food_app.ui.shape.loginBox
 import com.example.food_app.ui.shape.topAppBar
+import loginBox
 
 @Composable
 fun login(navController : NavController){

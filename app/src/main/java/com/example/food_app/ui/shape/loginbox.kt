@@ -1,4 +1,3 @@
-package com.example.food_app.ui.shape
 
 import android.annotation.SuppressLint
 import android.view.Gravity
@@ -17,36 +16,43 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.food_app.data.userInfo
 import com.example.food_app.function.login_function
+import com.example.food_app.ui.shape.iDBar
+import com.example.food_app.ui.shape.passwordBar
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @SuppressLint("ShowToast")
 @Composable
-fun loginBox(navController : NavController) {
+fun loginBox(navController: NavController) {
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
 
     Row(
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
-    )  {
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         val (ID, setID) = remember { mutableStateOf(TextFieldValue()) }
         val (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
 
-        Column(Modifier.padding(20.dp)){
+        Column(Modifier.padding(20.dp)) {
             iDBar(ID, setID)
             Spacer(Modifier.padding(1.dp))
             passwordBar(passWD, setPassWD)
             Spacer(Modifier.padding(10.dp))
             Button(onClick = {
                 login_function(ID, passWD)
-                var logincheck = userInfo.loginCheck
-                if(logincheck){
-                    navController.navigate("userMain") {
-                        popUpTo("registerMember")
+                coroutineScope.launch {
+                    delay(1000L)
+                    val logincheck = userInfo.loginCheck
+                    if (logincheck) {
+                        navController.navigate("userMain") {
+                            popUpTo("registerMember")
+                        }
+                    } else {
+                        val message = Toast.makeText(context, "ID 및 PW를 다시확인해주십시오", Toast.LENGTH_SHORT)
+                        message.setGravity(Gravity.CENTER, 0, 0) // 토스트 메시지를 가운데로 지정
+                        message.show()
                     }
-                }
-                else {
-                    val message = Toast.makeText(context, "ID 및 PW를 다시확인해주십시오", Toast.LENGTH_SHORT)
-                    message.setGravity(Gravity.CENTER, 0, 0) // 토스트 메세지 가운데 지정
-                    message.show()
                 }
             },
                 modifier = Modifier.fillMaxWidth(),
