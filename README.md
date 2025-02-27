@@ -1,13 +1,16 @@
-# 2024_Project_Food_App
-경남대학교 2024년 캡스톤 디자인 음식 관련 앱입니다.
+# Project_Food_App
+- 음식의 이미지를 통해 Kcal를 계산 및 사용자에게 제공
 
-#### 프론트엔드
+### FrontEnd
 * Kotlin (Jetpack Compose)
 
-#### 백엔드
+### BackEnd
 * kotlin & python 
 
-#### 개발 IDE 
+### Tool
 * IntelliJ
+* Figma
 
-# 모듈 설명
+# UI
+![image](https://github.com/user-attachments/assets/3cd2fbe1-2213-43cf-aa20-1d773ab336ea)
+
